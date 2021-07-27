@@ -3,5 +3,5 @@
 select FLOOR(TO_NUMBER(MinDispLineNumber)) || DECODE(((MinDispLineNumber -  FLOOR(TO_NUMBER(MinDispLineNumber)) ) * 100000), 0, '' , '.' || ((MinDispLineNumber -  FLOOR(TO_NUMBER(MinDispLineNumber)) ) * 100000) ) as MinDispLineNumber,
        FLOOR(TO_NUMBER(MaxDispLineNumber)) || DECODE(((MaxDispLineNumber -  FLOOR(TO_NUMBER(MaxDispLineNumber)) ) * 100000), 0, '' , '.' || ((MaxDispLineNumber -  FLOOR(TO_NUMBER(MaxDispLineNumber)) ) * 100000) ) as MaxDispLineNumber,
        TotalDispLineNumber from
-(select auction_header_id,max(to_number(DISP_LINE_NUMBER)) MaxDispLineNumber, min(to_number(DISP_LINE_NUMBER)) MinDispLineNumber, count(to_number(DISP_LINE_NUMBER)) TotalDispLineNumber from x
+(select id, max(to_number(disp_x_number)) MaxDispLineNumber, min(to_number(disp_x_number)) MinDispLineNumber, count(to_number(disp_x_number)) TotalDispLineNumber from x
 where hid = :hid group by hid)
