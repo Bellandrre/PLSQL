@@ -1,4 +1,4 @@
--- Man! this query kinda crazy. 
+-- This querys kinda crazy. 
 -- Here we are trying to delete from one transaction table for matching rows in an interface table. But the catch, No combination of columns in a single row of the interface table make a unique key.
 -- The rows can have duplicate data.
 -- So we group these duplicates in the interface table and obtain their ROWIDs(Oracle provides and internal id for each row in its table other than the constraints the table has)
@@ -8,8 +8,8 @@
     WITH PB_TEMP AS ( SELECT COUNT(*) count_rows, PLPT_INT.HEAD_ID, PAIP.LINE_NUMBER, PLPT_INT.REQUEST_ID, PLPT_INT.BATCH_ID,
                       PLPT_INT.SHIP_ORG_ID,PLPT_INT.SHIP_TO_LOCATION_ID, PLPT_INT.QUANTITY, PLPT_INT.TARGET_PRICE, PLPT_INT.EFFECTIVE_START_DATE, PLPT_INT.EFFECTIVE_END_DATE
                       FROM
-                      PON_LINE_PRICE_TIERS_INT PLPT_INT,
-                      PON_AUCTION_ITEM_PRICES PAIP
+                      X PLPT_INT,
+                      Y PAIP
                       WHERE  PLPT_INT.HEAD_ID = p_HEAD_ID
                       AND PLPT_INT.REQUEST_ID = p_request_id
                       AND PLPT_INT.IMPORT_ACTION = PON_GLOBAL_CONSTANTS.G_DELETE_ACTION
@@ -46,9 +46,9 @@
                                                              PAS.EFFECTIVE_START_DATE,
                                                              PAS.EFFECTIVE_END_DATE ORDER BY  PAIP.LINE_NUMBER) row_num
                      FROM
-                            PON_LINE_PRICE_TIERS_INT PLPT_INT,
-                            PON_AUCTION_ITEM_PRICES PAIP,
-                            PON_AUCTION_SHIPMENTS_ALL PAS
+                            X_INT PLPT_INT,
+                            Y PAIP,
+                            Z PAS
                 WHERE
                   PLPT_INT.HEAD_ID = p_HEAD_ID
                   AND PLPT_INT.REQUEST_ID = p_request_id
