@@ -1,4 +1,4 @@
--- Man! this query kinda crazy. 
+-- This querys kinda crazy. 
 -- Here we are trying to delete from one transaction table for matching rows in an interface table. But the catch, No combination of columns in a single row of the interface table make a unique key.
 -- The rows can have duplicate data.
 -- So we group these duplicates in the interface table and obtain their ROWIDs(Oracle provides and internal id for each row in its table other than the constraints the table has)
